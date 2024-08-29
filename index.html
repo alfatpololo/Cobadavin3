@@ -9,10 +9,37 @@
             height: 100%;
             margin: 0;
             overflow: hidden;
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
             display: flex;
-            justify-content: flex-start;
-            align-items: flex-start;
+            justify-content: center; /* Memusatkan konten secara horizontal */
+            align-items: center; /* Memusatkan konten secara vertikal */
+            background-color: #f0f0f0; /* Warna latar belakang yang lembut */
+        }
+        #container {
+            text-align: center; /* Memusatkan teks di dalam container */
+            position: relative; /* Memungkinkan posisi absolut untuk elemen lainnya */
+        }
+        #promo {
+            font-size: 24px; /* Ukuran font untuk promo */
+            color: #fff;
+            background-color: #18488D; /* Warna latar belakang untuk konten promo */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Bayangan lembut di sekitar elemen */
+            margin-bottom: 20px;
+            max-width: 90%; /* Agar elemen promo tidak terlalu lebar di perangkat kecil */
+            display: inline-block; /* Agar elemen promo tidak memakan lebar penuh */
+        }
+        #counter-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px;
+        }
+        #counter-text {
+            font-size: 24px;
+            color: #18488D;
+            margin-right: 10px;
         }
         #counter {
             font-size: 72px; /* Ukuran normal untuk desktop */
@@ -22,21 +49,47 @@
             border-radius: 10px;
             border: 5px solid #18488D;
             text-align: center;
-            margin: 20px;
+            width: 150px;
+        }
+        #voucher {
+            background-color: #FBD900;
+            color: #18488D;
         }
 
         @media (max-width: 768px) {
+            #promo {
+                font-size: 18px; /* Ukuran font yang lebih kecil untuk perangkat mobile */
+                padding: 15px;
+                box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+            }
+            #counter-container {
+                flex-direction: column;
+            }
+            #counter-text {
+                font-size: 18px;
+                margin-right: 0;
+                margin-bottom: 10px;
+            }
             #counter {
                 font-size: 48px; /* Ukuran lebih kecil untuk perangkat mobile */
                 padding: 15px;
                 border: 4px solid #18488D;
-                margin: 15px;
             }
         }
     </style>
 </head>
 <body>
-    <div id="counter">200</div>
+    <div id="container">
+        <div id="promo">
+            Masih Kurang? <span id="voucher">Dapatkan Voucher Diskon 20%</span> Hanya untuk 50 Orang Pertama!<br>
+            Ambil Promonya Sekarang, Sebelum Kehabisan!
+        </div>
+        <div id="counter-container">
+            <span id="counter-text">Buruan, sisa promo :</span>
+            <div id="counter">200</div>
+        </div>
+    </div>
+
     <script>
         function startCounter() {
             const display = document.querySelector('#counter');
@@ -51,8 +104,8 @@
                 }
             };
 
-            // Decrease the counter every 30 seconds
-            setInterval(decreaseCounter, 45000); // 30,000 milliseconds = 30 seconds
+            // Decrease the counter every 45 seconds
+            setInterval(decreaseCounter, 45000); // 45,000 milliseconds = 45 seconds
         }
 
         window.onload = function () {
