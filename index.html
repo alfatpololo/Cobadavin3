@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landing Page Counter</title>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: flex-start;
+            align-items: flex-start;
+        }
+        #counter {
+            font-size: 72px; /* Ukuran normal untuk desktop */
+            background-color: transparent;
+            color: #18488D;
+            padding: 20px;
+            border-radius: 10px;
+            border: 5px solid #18488D;
+            text-align: center;
+            margin: 20px;
+        }
+
+        @media (max-width: 768px) {
+            #counter {
+                font-size: 48px; /* Ukuran lebih kecil untuk perangkat mobile */
+                padding: 15px;
+                border: 4px solid #18488D;
+                margin: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="counter">200</div>
+    <script>
+        function startCounter() {
+            const display = document.querySelector('#counter');
+            let counterValue = 50; // Set the starting value
+
+            display.textContent = counterValue;
+
+            const decreaseCounter = () => {
+                if (counterValue > 0) {
+                    counterValue -= 1;
+                    display.textContent = counterValue;
+                }
+            };
+
+            // Decrease the counter every 30 seconds
+            setInterval(decreaseCounter, 45000); // 30,000 milliseconds = 30 seconds
+        }
+
+        window.onload = function () {
+            startCounter();
+        };
+    </script>
+</body>
+</html>
