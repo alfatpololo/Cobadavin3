@@ -22,10 +22,13 @@
             border-radius: 20px;
             padding: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            max-width: 100vw; /* Ensure it fits within the viewport width */
+            max-height: 100vh; /* Ensure it fits within the viewport height */
+            overflow: hidden; /* Prevent scrollbars */
         }
         .label {
             color: #18488d;
-            font-size: 24px;
+            font-size: 4vw; /* Responsive font size */
             font-weight: 700; /* Use weight 700 */
             margin-right: 20px;
             white-space: nowrap; /* Prevent text from wrapping */
@@ -37,15 +40,17 @@
             border-radius: 20px;
             padding: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            max-width: 40vw; /* Responsive width */
+            max-height: 40vh; /* Responsive height */
         }
         .counter {
             font-family: 'Digital-7', monospace;
             color: #ffffff;
-            font-size: 80px;
-            letter-spacing: 10px;
+            font-size: 8vw; /* Responsive font size */
+            letter-spacing: 1vw; /* Responsive letter spacing */
             text-align: center;
             border: 3px solid #ffffff;
-            padding: 20px;
+            padding: 5px;
             border-radius: 10px;
             background-color: #000;
             box-shadow: inset 0 0 10px rgba(0, 255, 0, 0.5);
