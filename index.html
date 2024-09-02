@@ -3,114 +3,98 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Landing Page Counter</title>
+    <title>Digital Tasbih Counter</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@700&display=swap" rel="stylesheet">
     <style>
-        html, body {
-            height: 100%;
-            margin: 0;
-            overflow: hidden;
-            font-family: 'Arial', sans-serif;
+        body {
             display: flex;
-            justify-content: center; /* Memusatkan konten secara horizontal */
-            align-items: center; /* Memusatkan konten secara vertikal */
-            background-color: #f0f0f0; /* Warna latar belakang yang lembut */
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #333;
+            font-family: 'Inter', sans-serif; /* Apply Inter font to the whole body */
         }
-        #container {
-            text-align: center; /* Memusatkan teks di dalam container */
-            position: relative; /* Memungkinkan posisi absolut untuk elemen lainnya */
-        }
-        #promo {
-            font-size: 24px; /* Ukuran font untuk promo */
-            color: #fff;
-            background-color: #18488D; /* Warna latar belakang untuk konten promo */
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Bayangan lembut di sekitar elemen */
-            margin-bottom: 20px;
-            max-width: 90%; /* Agar elemen promo tidak terlalu lebar di perangkat kecil */
-            display: inline-block; /* Agar elemen promo tidak memakan lebar penuh */
-        }
-        #counter-container {
+        .counter-container {
             display: flex;
             align-items: center;
-            justify-content: center;
-            margin: 20px;
+            background: #fff;
+            border-radius: 20px;
+            padding: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
         }
-        #counter-text {
+        .label {
+            color: #18488d;
             font-size: 24px;
-            color: #18488D;
-            margin-right: 10px;
+            font-weight: 700; /* Use weight 700 */
+            margin-right: 20px;
+            white-space: nowrap; /* Prevent text from wrapping */
         }
-        #counter {
-            font-size: 72px; /* Ukuran normal untuk desktop */
-            background-color: transparent;
-            color: #18488D;
+        .counter-box {
+            display: flex;
+            align-items: center;
+            background: #000;
+            border-radius: 20px;
+            padding: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        .counter {
+            font-family: 'Digital-7', monospace;
+            color: #ffffff;
+            font-size: 80px;
+            letter-spacing: 10px;
+            text-align: center;
+            border: 3px solid #ffffff;
             padding: 20px;
             border-radius: 10px;
-            border: 5px solid #18488D;
-            text-align: center;
-            width: 150px;
+            background-color: #000;
+            box-shadow: inset 0 0 10px rgba(0, 255, 0, 0.5);
+            animation: slide 0.5s ease-in-out;
         }
-        #voucher {
-            background-color: #FBD900;
-            color: #18488D;
-        }
-
-        @media (max-width: 768px) {
-            #promo {
-                font-size: 18px; /* Ukuran font yang lebih kecil untuk perangkat mobile */
-                padding: 15px;
-                box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+        @keyframes slide {
+            from {
+                transform: translateY(20px);
+                opacity: 0;
             }
-            #counter-container {
-                flex-direction: column;
-            }
-            #counter-text {
-                font-size: 18px;
-                margin-right: 0;
-                margin-bottom: 10px;
-            }
-            #counter {
-                font-size: 48px; /* Ukuran lebih kecil untuk perangkat mobile */
-                padding: 15px;
-                border: 4px solid #18488D;
+            to {
+                transform: translateY(0);
+                opacity: 1;
             }
         }
     </style>
 </head>
 <body>
-    <div id="container">
-        <div id="promo">
-            Masih Kurang? <span id="voucher">Dapatkan Voucher Diskon 20%</span> Hanya untuk 50 Orang Pertama!<br>
-            Ambil Promonya Sekarang, Sebelum Kehabisan!
-        </div>
-        <div id="counter-container">
-            <span id="counter-text">Buruan, sisa promo :</span>
-            <div id="counter">200</div>
+    <div class="counter-container">
+        <div class="label">Buruan, promo tinggal :</div>
+        <div class="counter-box">
+            <div class="counter" id="counter"></div>
         </div>
     </div>
-
     <script>
-        function startCounter() {
-            const display = document.querySelector('#counter');
-            let counterValue = 50; // Set the starting value
+        let counterElem = document.getElementById('counter');
+        
+        // Retrieve counter value from localStorage or initialize to 200 if not present
+        let count = parseInt(localStorage.getItem('counterValue')) || 200;
 
-            display.textContent = counterValue;
+        // Display the initial counter value
+        counterElem.innerText = count;
 
-            const decreaseCounter = () => {
-                if (counterValue > 0) {
-                    counterValue -= 1;
-                    display.textContent = counterValue;
-                }
-            };
-
-            // Decrease the counter every 45 seconds
-            setInterval(decreaseCounter, 45000); // 45,000 milliseconds = 45 seconds
+        function updateCounter() {
+            if (count > 0) {
+                count -= 5;
+                counterElem.innerText = count;
+                localStorage.setItem('counterValue', count); // Save the updated counter value
+                counterElem.style.animation = 'slide 0.5s ease-in-out';
+                setTimeout(() => counterElem.style.animation = '', 500);
+            } else {
+                counterElem.innerText = 0;
+                localStorage.removeItem('counterValue'); // Remove the counter value when it reaches 0
+                clearInterval(counterInterval); // Stop the counter update
+            }
         }
 
-        window.onload = function () {
-            startCounter();
-        };
+        // Update the counter every 2 seconds
+        let counterInterval = setInterval(updateCounter, 2000);
     </script>
 </body>
 </html>
